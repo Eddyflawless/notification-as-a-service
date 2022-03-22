@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+service NotificationService {
+    rpc AddSmsNotification (Sms) returns (StatusResponse) {}
+    rpc AddEmailNotification (Email) returns (StatusResponse) {}
+}
+
+message Empty {}
+
+message StatusResponse {
+    int32 status = 1;
+}
+
+message Sms {
+    int32 id = 1;
+    string type = 2;
+    optional string bulk_id = 3;
+    optional string processor = 4;
+    string message = 5;
+    optional string schedule_date = 6;
+    int32 priority = 7;
+    bool is_sent = 8;
+    bool sent_count = 9;
+    bool retry_count = 10;
+    string phone = 11;
+    string created_at = 12;
+}
+
+message Email {
+    int32 id = 1;
+    string type = 2;
+    optional string bulk_id = 3;
+    string message = 4;
+    optional string schedule_date = 5;
+    int32 priority = 6;
+    bool is_sent = 7;
+    bool sent_count = 8;
+    bool retry_count = 9;
+    string email_to = 10;
+    string created_at = 11;
+}
