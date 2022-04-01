@@ -25,17 +25,11 @@ const t2geeksSmsApi = async (payload) => {
 
     url = encodeURI(url);
 
-    console.log("sms-uri", url);
-
     request.get(url)
     .on('error', (error) =>  { throw error })
     .on('response', async (response) => {
 
-        // console.log("sms response", response);
-
         var statusCode = response.statusCode;
-
-        console.log( statusCode );
         
         await Models.SmsLog.create({
             processor: sms_driver,

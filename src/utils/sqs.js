@@ -3,18 +3,17 @@ require('dotenv').config({ path: '.dev.env' });
 
 var AWS = require('aws-sdk');
 
-const credentials = { 
-    "accessKeyId": process.env.SQS_ACCESS_KEY_ID, 
-    "secretAccessKey": process.env.SQS_SECRET_ACCESS_KEY, 
-    "region": process.env.SQS_REGION 
-};
+var sqs_config = require("../config").config.sqs.queueName;
+
+var credentials = sqs_config.credentials;
 
 // Set credentials
 AWS.config.update(credentials);
 
-const accountId = process.env.SQS_ACCOUNT_ID;
-const queueName = 'notification-sqs'; //staging
-const queueUrl = `https://sqs.${process.env.SQS_REGION}.amazonaws.com/${accountId}/${queueName}`;
+const accountId = sqs_config.accountId;
+const queueName = sqs_config.queueName; //staging
+const region = sqs_config.region;
+const queueUrl = `https://sqs.${region}.amazonaws.com/${accountId}/${queueName}`;
 
 const sqs_client = new AWS.SQS({apiVersion: '2012-11-05'});
 

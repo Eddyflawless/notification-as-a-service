@@ -1,3 +1,6 @@
+
+require('dotenv').config({ path: '.dev.env' });
+
 module.exports.config = {
     grpc : {
         keepCase: true,
@@ -8,9 +11,15 @@ module.exports.config = {
         oneofs: true
     },
     sqs: { 
-        "accessKeyId": process.env.SQS_ACCESS_KEY_ID, 
-        "secretAccessKey": process.env.SQS_SECRET_ACCESS_KEY, 
-        "region": process.env.SQS_REGION 
+        queueName: "notification-sqs",
+        accountId: process.env.SQS_ACCOUNT_ID,
+        region: process.env.SQS_REGION, 
+        credentials: {
+
+            "accessKeyId": process.env.SQS_ACCESS_KEY_ID, 
+            "secretAccessKey": process.env.SQS_SECRET_ACCESS_KEY, 
+            "region": process.env.SQS_REGION 
+        }
     },
     mail: {
         host: "smtp.ethereal.email",
